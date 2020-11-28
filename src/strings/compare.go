@@ -4,7 +4,9 @@
 
 package strings
 
+// Compare 返回一个按字典顺序比较两个字符串的整数。
 // Compare returns an integer comparing two strings lexicographically.
+// 如果 a == b，结果将为 0；如果 a <b，结果将为-1；如果 a> b，结果将为 +1。
 // The result will be 0 if a==b, -1 if a < b, and +1 if a > b.
 //
 // Compare is included only for symmetry with package bytes.

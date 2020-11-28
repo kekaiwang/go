@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package strings implements simple functions to manipulate UTF-8 encoded strings.
+// 字符串包通过简单的函数来操作 UTF-8 编码的字符串。
 //
-// For information about UTF-8 strings in Go, see https://blog.golang.org/strings.
+// 有关 Go 中 UTF-8 字符串的信息, 查看 https://blog.golang.org/strings.
 package strings
 
 import (
@@ -57,7 +57,7 @@ func Count(s, substr string) int {
 	}
 }
 
-// Contains reports whether substr is within s.
+// 判断字符串 s 是否包含子串 substr。
 func Contains(s, substr string) bool {
 	return Index(s, substr) >= 0
 }
