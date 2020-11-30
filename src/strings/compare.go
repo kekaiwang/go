@@ -7,9 +7,7 @@ package strings
 // Compare 返回一个按字典顺序比较两个字符串的整数。
 // 如果 a == b，结果将为 0；如果 a <b，结果将为-1；如果 a> b，结果将为 +1。
 //
-// Compare is included only for symmetry with package bytes.
-// It is usually clearer and always faster to use the built-in
-// string comparison operators ==, <, >, and so on.
+// 仅包括与包字节对称的比较。 使用内置的字符串比较运算符==，<，>等通常更清晰，总是更快。
 func Compare(a, b string) int {
 	// NOTE(rsc): This function does NOT call the runtime cmpstring function,
 	// because we do not want to provide any performance justification for
