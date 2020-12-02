@@ -36,9 +36,7 @@ func explode(s string, n int) []string {
 	return a
 }
 
-// Count counts the number of non-overlapping instances of substr in s.
 // Count 计算子串 substr 在 s 中的不重复的数量。
-// If substr is an empty string, Count returns 1 + the number of Unicode code points in s.
 // 如果 substr 是一个空字符串，则 Count 返回 1 + s 中的 Unicode 代码点数。
 func Count(s, substr string) int {
 	// special case
@@ -64,19 +62,17 @@ func Contains(s, substr string) bool {
 	return Index(s, substr) >= 0
 }
 
-// ContainsAny reports whether any Unicode code points in chars are within s.
 // ContainsAny 判断字符串 s 中是否包含 chars 中的任一字符。
 func ContainsAny(s, chars string) bool {
 	return IndexAny(s, chars) >= 0
 }
 
-// ContainsRune reports whether the Unicode code point r is within s.
 // ContainsRune 判断字符串 s 是否包含 utf-8 码值 r。
 func ContainsRune(s string, r rune) bool {
 	return IndexRune(s, r) >= 0
 }
 
-// LastIndex returns the index of the last instance of substr in s, or -1 if substr is not present in s.
+// LastIndex 返回 substr 在字符串 s 中最后的一个索引，如果 substr 在 字符串 s 中没有则返回 -1
 func LastIndex(s, substr string) int {
 	n := len(substr)
 	switch {
