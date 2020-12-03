@@ -72,7 +72,7 @@ func ContainsRune(s string, r rune) bool {
 	return IndexRune(s, r) >= 0
 }
 
-// LastIndex 返回 substr 在字符串 s 中最后的一个索引，如果 substr 在 字符串 s 中没有则返回 -1
+// LastIndex 返回 substr 在 s 中最后的一个索引，如果 substr 在 s 中没有则返回 -1
 func LastIndex(s, substr string) int {
 	n := len(substr)
 	switch {
@@ -109,15 +109,13 @@ func LastIndex(s, substr string) int {
 	return -1
 }
 
-// IndexByte returns the index of the first instance of c in s, or -1 if c is not present in s.
+// IndexByte 返回 c 在 s 中第一次出现的索引位置，如果 c 在 s 中没有则返回 -1
 func IndexByte(s string, c byte) int {
 	return bytealg.IndexByteString(s, c)
 }
 
-// IndexRune returns the index of the first instance of the Unicode code point
-// r, or -1 if rune is not present in s.
-// If r is utf8.RuneError, it returns the first instance of any
-// invalid UTF-8 byte sequence.
+// IndexRune 返回 Unicode 码值 r 在 s 中第一次出现的位置，如果没有则返回 -1。
+// 如果 r 为 utf8.RuneError，它将返回任何无效 UTF-8 字节序列的第一个实例。
 func IndexRune(s string, r rune) int {
 	switch {
 	case 0 <= r && r < utf8.RuneSelf:
@@ -136,8 +134,7 @@ func IndexRune(s string, r rune) int {
 	}
 }
 
-// IndexAny returns the index of the first instance of any Unicode code point
-// from chars in s, or -1 if no Unicode code point from chars is present in s.
+// IndexAny 返回 chars 在 s 中的第一个 Unicode 代码点的位置，如果不存在则返回 -1。
 func IndexAny(s, chars string) int {
 	if chars == "" {
 		// Avoid scanning all of s.
@@ -169,9 +166,7 @@ func IndexAny(s, chars string) int {
 	return -1
 }
 
-// LastIndexAny returns the index of the last instance of any Unicode code
-// point from chars in s, or -1 if no Unicode code point from chars is
-// present in s.
+// LastIndexAny 返回 chars 在 s 中出现的最后一个 Unicode 代码点的位置，如果没有则返回 -1。
 func LastIndexAny(s, chars string) int {
 	if chars == "" {
 		// Avoid scanning all of s.
@@ -221,7 +216,7 @@ func LastIndexAny(s, chars string) int {
 	return -1
 }
 
-// LastIndexByte returns the index of the last instance of c in s, or -1 if c is not present in s.
+// LastIndexByte 返回字节 c 在 s 中最后一次出现的位置，没有则返回 -1。
 func LastIndexByte(s string, c byte) int {
 	for i := len(s) - 1; i >= 0; i-- {
 		if s[i] == c {
@@ -262,6 +257,7 @@ func genSplit(s, sep string, sepSave, n int) []string {
 
 // SplitN slices s into substrings separated by sep and returns a slice of
 // the substrings between those separators.
+// SplitN 将 s 分割成由 sep 分隔的子字符串，并返回这些分隔符之间的子字符串的切片。
 //
 // The count determines the number of substrings to return:
 //   n > 0: at most n substrings; the last substring will be the unsplit remainder.
@@ -416,8 +412,7 @@ func FieldsFunc(s string, f func(rune) bool) []string {
 	return a
 }
 
-// Join concatenates the elements of its first argument to create a single string. The separator
-// string sep is placed between elements in the resulting string.
+// Join 将其第一个参数的元素连接起来创建一个字符串。 分隔符字符串 sep 放置在结果字符串的元素之间。
 func Join(elems []string, sep string) string {
 	switch len(elems) {
 	case 0:
@@ -440,12 +435,12 @@ func Join(elems []string, sep string) string {
 	return b.String()
 }
 
-// HasPrefix tests whether the string s begins with prefix.
+// HasPrefix 判断字符串 s 是否以 prefix 前缀开头。
 func HasPrefix(s, prefix string) bool {
 	return len(s) >= len(prefix) && s[0:len(prefix)] == prefix
 }
 
-// HasSuffix tests whether the string s ends with suffix.
+// HasSuffix 判断字符串 s 是否以 suffix 后缀结尾。
 func HasSuffix(s, suffix string) bool {
 	return len(s) >= len(suffix) && s[len(s)-len(suffix):] == suffix
 }
@@ -512,10 +507,8 @@ func Map(mapping func(rune) rune, s string) string {
 	return b.String()
 }
 
-// Repeat returns a new string consisting of count copies of the string s.
-//
-// It panics if count is negative or if
-// the result of (len(s) * count) overflows.
+// Repeat 返回一个新字符串，该字符串由 count 个字符串 s 的副本组成。
+// 如果 count 为负或（len * s * count）的结果溢出，则返回 panic 异常。
 func Repeat(s string, count int) string {
 	if count == 0 {
 		return ""
@@ -546,7 +539,7 @@ func Repeat(s string, count int) string {
 	return b.String()
 }
 
-// ToUpper returns s with all Unicode letters mapped to their upper case.
+// ToUpper 返回将所有字母都转为对应的大写的 s。
 func ToUpper(s string) string {
 	isASCII, hasLower := true, false
 	for i := 0; i < len(s); i++ {
@@ -577,6 +570,7 @@ func ToUpper(s string) string {
 }
 
 // ToLower returns s with all Unicode letters mapped to their lower case.
+// ToLower 返回将所有字母都转为对应的小写的 s。
 func ToLower(s string) string {
 	isASCII, hasUpper := true, false
 	for i := 0; i < len(s); i++ {
