@@ -37,7 +37,7 @@ func explode(s string, n int) []string {
 }
 
 // Count 计算子串 substr 在 s 中的不重复的数量。
-// 如果 substr 是一个空字符串，则 Count 返回 1 + s 中的 Unicode 代码点数。
+// 如果 substr 是一个空字符串，则 Count 返回 1 + s 中的 Unicode 码数。
 func Count(s, substr string) int {
 	// special case
 	if len(substr) == 0 {
@@ -72,7 +72,7 @@ func ContainsRune(s string, r rune) bool {
 	return IndexRune(s, r) >= 0
 }
 
-// LastIndex 返回 substr 在 s 中最后的一个索引，如果 substr 在 s 中没有则返回 -1
+// LastIndex 返回 substr 在 s 中最后一次出现的索引位置，如果 substr 在 s 中没有则返回 -1
 func LastIndex(s, substr string) int {
 	n := len(substr)
 	switch {
@@ -134,7 +134,7 @@ func IndexRune(s string, r rune) int {
 	}
 }
 
-// IndexAny 返回 chars 在 s 中的第一个 Unicode 代码点的位置，如果不存在则返回 -1。
+// IndexAny 返回 chars 在 s 中的第一个 Unicode 码的位置，如果不存在则返回 -1。
 func IndexAny(s, chars string) int {
 	if chars == "" {
 		// Avoid scanning all of s.
@@ -166,7 +166,7 @@ func IndexAny(s, chars string) int {
 	return -1
 }
 
-// LastIndexAny 返回 chars 在 s 中出现的最后一个 Unicode 代码点的位置，如果没有则返回 -1。
+// LastIndexAny 返回 chars 在 s 中出现的最后一个 Unicode 码的索引位置，如果没有则返回 -1。
 func LastIndexAny(s, chars string) int {
 	if chars == "" {
 		// Avoid scanning all of s.
@@ -216,7 +216,7 @@ func LastIndexAny(s, chars string) int {
 	return -1
 }
 
-// LastIndexByte 返回字节 c 在 s 中最后一次出现的位置，没有则返回 -1。
+// LastIndexByte 返回字节 c 在 s 中最后一次出现的索引位置，没有则返回 -1。
 func LastIndexByte(s string, c byte) int {
 	for i := len(s) - 1; i >= 0; i-- {
 		if s[i] == c {
@@ -255,17 +255,14 @@ func genSplit(s, sep string, sepSave, n int) []string {
 	return a[:i+1]
 }
 
-// SplitN slices s into substrings separated by sep and returns a slice of
-// the substrings between those separators.
-// SplitN 将 s 分割成由 sep 分隔的子字符串，并返回这些分隔符之间的子字符串的切片。
+// SplitN 将 s 分割成由 sep 分隔的子字符串，并返回由这些分隔符之间的子串组成的切片。
 //
-// The count determines the number of substrings to return:
-//   n > 0: at most n substrings; the last substring will be the unsplit remainder.
-//   n == 0: the result is nil (zero substrings)
-//   n < 0: all substrings
+// 该计数决定要返回的子字符串的数量：
+//		n > 0: 最多 n 个子串，最后一个子串将是未拆分的余数。
+// 		n == 0: 结果是 nil(没有子串)
+// 		n < 0: 所有子串
 //
-// Edge cases for s and sep (for example, empty strings) are handled
-// as described in the documentation for Split.
+// s 和 sep的边界情况（例如，空字符串）的处理方法如 Split 文档中所述。
 func SplitN(s, sep string, n int) []string { return genSplit(s, sep, 0, n) }
 
 // SplitAfterN slices s into substrings after each instance of sep and
@@ -569,8 +566,7 @@ func ToUpper(s string) string {
 	return Map(unicode.ToUpper, s)
 }
 
-// ToLower returns s with all Unicode letters mapped to their lower case.
-// ToLower 返回将所有字母都转为对应的小写的 s。
+// ToLower 返回将所有字母都转为对应小写的 s。
 func ToLower(s string) string {
 	isASCII, hasUpper := true, false
 	for i := 0; i < len(s); i++ {
@@ -600,18 +596,15 @@ func ToLower(s string) string {
 	return Map(unicode.ToLower, s)
 }
 
-// ToTitle returns a copy of the string s with all Unicode letters mapped to
-// their Unicode title case.
+// ToTitle 返回将所有字母都转为对应标题版本的拷贝字符串 s。
 func ToTitle(s string) string { return Map(unicode.ToTitle, s) }
 
-// ToUpperSpecial returns a copy of the string s with all Unicode letters mapped to their
-// upper case using the case mapping specified by c.
+// ToUpperSpecial 返回字符串 s 的拷贝，其中所有字母均使用 c 指定的映射关系转换为大写字母。
 func ToUpperSpecial(c unicode.SpecialCase, s string) string {
 	return Map(c.ToUpper, s)
 }
 
-// ToLowerSpecial returns a copy of the string s with all Unicode letters mapped to their
-// lower case using the case mapping specified by c.
+// ToLowerSpecial 返回字符串 s 的拷贝，其中所有字母均使用 c 指定的映射关系转换为小写字母。
 func ToLowerSpecial(c unicode.SpecialCase, s string) string {
 	return Map(c.ToLower, s)
 }
@@ -718,8 +711,7 @@ func Title(s string) string {
 		s)
 }
 
-// TrimLeftFunc returns a slice of the string s with all leading
-// Unicode code points c satisfying f(c) removed.
+// TrimLeftFunc 返回将字符串 s 前端所有满足 f(c) 的 Unicode 码值删除的字符串。
 func TrimLeftFunc(s string, f func(rune) bool) string {
 	i := indexFunc(s, f, false)
 	if i == -1 {
@@ -728,8 +720,7 @@ func TrimLeftFunc(s string, f func(rune) bool) string {
 	return s[i:]
 }
 
-// TrimRightFunc returns a slice of the string s with all trailing
-// Unicode code points c satisfying f(c) removed.
+// TrimRightFunc 返回将字符串 s 后端所有满足 f(c) 的 Unicode 码值删除的字符串。
 func TrimRightFunc(s string, f func(rune) bool) string {
 	i := lastIndexFunc(s, f, false)
 	if i >= 0 && s[i] >= utf8.RuneSelf {
@@ -741,20 +732,17 @@ func TrimRightFunc(s string, f func(rune) bool) string {
 	return s[0:i]
 }
 
-// TrimFunc returns a slice of the string s with all leading
-// and trailing Unicode code points c satisfying f(c) removed.
+// TrimFunc 返回将字符串 s 前后所有满足 f(c) 的 Unicode 码值删除的字符串。
 func TrimFunc(s string, f func(rune) bool) string {
 	return TrimRightFunc(TrimLeftFunc(s, f), f)
 }
 
-// IndexFunc returns the index into s of the first Unicode
-// code point satisfying f(c), or -1 if none do.
+// IndexFunc 返回 s 中第一个满足 f(c) 的 Unicode 码值的索引，如果没有，则返回-1。
 func IndexFunc(s string, f func(rune) bool) int {
 	return indexFunc(s, f, true)
 }
 
-// LastIndexFunc returns the index into s of the last
-// Unicode code point satisfying f(c), or -1 if none do.
+// LastIndexFunc 返回 s 中最后一个满足 f(c) 的 Unicode 码值的索引，如果没有，则返回-1。
 func LastIndexFunc(s string, f func(rune) bool) int {
 	return lastIndexFunc(s, f, true)
 }
@@ -827,6 +815,7 @@ func makeCutsetFunc(cutset string) func(rune) bool {
 
 // Trim returns a slice of the string s with all leading and
 // trailing Unicode code points contained in cutset removed.
+// Trim 返回将字符串 s 中前后所有包含 cutset 的 Unicode 码值删除的字符串。
 func Trim(s, cutset string) string {
 	if s == "" || cutset == "" {
 		return s
@@ -834,10 +823,8 @@ func Trim(s, cutset string) string {
 	return TrimFunc(s, makeCutsetFunc(cutset))
 }
 
-// TrimLeft returns a slice of the string s with all leading
-// Unicode code points contained in cutset removed.
-//
-// To remove a prefix, use TrimPrefix instead.
+// TrimLeft 返回将字符串 s 中前面所有包含 cutset 的 Unicode 码值删除的字符串。
+// 要删除前缀，请使用 TrimPrefix。
 func TrimLeft(s, cutset string) string {
 	if s == "" || cutset == "" {
 		return s
@@ -847,6 +834,8 @@ func TrimLeft(s, cutset string) string {
 
 // TrimRight returns a slice of the string s, with all trailing
 // Unicode code points contained in cutset removed.
+// TrimRight 返回将字符串 s 中后面所有包含 cutset 的 Unicode 码值删除的字符串。
+// 要删除前缀，请使用 TrimPrefix。
 //
 // To remove a suffix, use TrimSuffix instead.
 func TrimRight(s, cutset string) string {
